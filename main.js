@@ -5,7 +5,7 @@ function generateArrayBar()
     bar=[];
     var container = document.getElementById('array-container');
     
-    for(var i=0;i<150;i++){
+    for(var i=0;i<100;i++){
         let barHeight = Math.floor(Math.random()*700)+5;
         //console.log(barHeight);
         bar.push(barHeight);
@@ -29,7 +29,7 @@ function update(i,color,height)
         var divElem = document.getElementById(i);
         divElem.style.height=height+"px";
         divElem.style.backgroundColor=color;
-    },delay+=1);
+    },delay+=5);
     
 }
 function bubbleSort()
@@ -57,16 +57,56 @@ function bubbleSort()
         update(j,"green",bar[j]);
     }
     update(0,"green",bar[0]);
-    document.getElementById('btn-sort').disabled=true;
+    document.getElementById('btn-bubble-sort').disabled=true;
+    document.getElementById('btn-selection-sort').disabled=true;
     document.getElementById('btn-generate').disabled=true;
     enableButton();
 }
 
+function selectionSort()
+{
+    delay=0;
+    for(var i=0;i<bar.length-1;i++){
+        update(i,"red",bar[i]);
+        var minIndex=i;
+        for(var j=i+1;j<bar.length;j++){
+            update(j,"yellow",bar[j]);
+            if(bar[minIndex]>bar[j]){
+                if(minIndex!=i){
+                    update(minIndex,"blue",bar[minIndex]);
+                }
+                minIndex=j;
+                update(minIndex,"red",bar[minIndex]);
+            }
+            else{
+                update(j,"blue",bar[j]);
+            }
+        }
+        if(minIndex!=i){
+            var temp = bar[minIndex];
+            bar[minIndex]=bar[i];
+            bar[i]=temp;
+
+            update(minIndex,"red",bar[minIndex]);
+            update(i,"red",bar[i]);
+            update(minIndex,"blue",bar[minIndex]);
+        }
+        update(i,"green",bar[i]);
+    }
+    update(i,"green",bar[i]);
+
+    document.getElementById('btn-bubble-sort').disabled=true;
+    document.getElementById('btn-selection-sort').disabled=true;
+    document.getElementById('btn-generate').disabled=true;
+
+    enableButton();
+}
 function enableButton()
 {
    setTimeout(()=>{
        
-        document.getElementById('btn-sort').disabled=false;
+        document.getElementById('btn-bubble-sort').disabled=false;
+        document.getElementById('btn-selection-sort').disabled=false;
         document.getElementById('btn-generate').disabled=false;
     },delay);
 }
@@ -74,7 +114,8 @@ function enableButton()
 generateArrayBar();
 
 document.getElementById('btn-generate').addEventListener("click",()=>{generateArrayBar()});
-document.getElementById('btn-sort').addEventListener("click",()=>{bubbleSort()});
+document.getElementById('btn-bubble-sort').addEventListener("click",()=>{bubbleSort()});
+document.getElementById('btn-selection-sort').addEventListener("click",()=>{selectionSort()});
 
 
       

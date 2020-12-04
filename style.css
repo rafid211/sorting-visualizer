@@ -3,11 +3,13 @@
     position:absolute;
     left:100px;
     padding-top: 100px;
+    overflow: auto;
+    white-space: nowrap;
     /* transform: rotate(180deg) scaleX(-1); */
 }
 .array-bar{
-    width: 6px;
+    width: 7px;
     background-color:blue;
     display:inline-block;
-    margin: 0 3px;
+    margin: 0 5px;
 }
