@@ -1,0 +1,13 @@
+
+.array-container{
+    position:absolute;
+    left:100px;
+    padding-top: 100px;
+    /* transform: rotate(180deg) scaleX(-1); */
+}
+.array-bar{
+    width: 6px;
+    background-color:blue;
+    display:inline-block;
+    margin: 0 3px;
+}
