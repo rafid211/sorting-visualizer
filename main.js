@@ -5,14 +5,17 @@ var currentColor="rgb(25, 195, 238)";
 var runningColor="red";
 var scanningColor = "yellow";
 var afterSortColor="green";
-var speed=1000;
+var speed=1;
 
 function setSpeed()
 {
     var s=document.getElementById('speed').value;
     s = parseInt(s);
-    
-    speed=s;
+    if(s==1)speed=1;
+    else if(s==2)speed=5;
+    else if(s==3)speed=10;
+    else if(s==4)speed=100;
+    else speed=1000;
     console.log(speed);
 }
 function disableBUtton()
