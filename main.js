@@ -5,7 +5,7 @@ var currentColor="rgb(25, 195, 238)";
 var runningColor="red";
 var scanningColor = "yellow";
 var afterSortColor="green";
-var speed=1000;
+var speed=1;
 
 function setSpeed()
 {
