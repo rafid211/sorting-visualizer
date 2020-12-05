@@ -9,7 +9,10 @@
 }
 .array-bar{
     width: 7px;
-    background-color:blue;
+    background-color:rgb(25, 195, 238);
     display:inline-block;
     margin: 0 5px;
+}
+.speed{
+    margin-left: 10px;
 }
