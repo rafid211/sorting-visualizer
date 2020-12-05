@@ -1,5 +1,34 @@
 
 var bar=[];
+var delay=0;
+function disableBUtton()
+{
+    document.getElementById('btn-bubble-sort').disabled=true;
+    document.getElementById('btn-selection-sort').disabled=true;
+    document.getElementById('btn-insertion-sort').disabled=true;
+    document.getElementById('btn-merge-sort').disabled=true;
+    document.getElementById('btn-generate').disabled=true;
+}
+function enableButton()
+{
+   setTimeout(()=>{
+       
+        document.getElementById('btn-bubble-sort').disabled=false;
+        document.getElementById('btn-selection-sort').disabled=false;
+        document.getElementById('btn-insertion-sort').disabled=false;
+        document.getElementById('btn-merge-sort').disabled=false;
+        document.getElementById('btn-generate').disabled=false;
+    },delay);
+}
+function setup()
+{
+    generateArrayBar();
+    document.getElementById('btn-generate').addEventListener("click",()=>{generateArrayBar()});
+    document.getElementById('btn-bubble-sort').addEventListener("click",()=>{bubbleSort()});
+    document.getElementById('btn-selection-sort').addEventListener("click",()=>{selectionSort()});
+    document.getElementById('btn-insertion-sort').addEventListener("click",()=>{insertionSort()});
+    document.getElementById('btn-merge-sort').addEventListener("click",()=>{mergeSort()});
+}
 function generateArrayBar()
 {
     bar=[];
@@ -21,7 +50,7 @@ function generateArrayBar()
     container.innerHTML=allbar;
 
 }
-var delay=0;
+
 function update(i,color,height)
 {
     setTimeout(()=>{
@@ -29,12 +58,12 @@ function update(i,color,height)
         var divElem = document.getElementById(i);
         divElem.style.height=height+"px";
         divElem.style.backgroundColor=color;
-    },delay+=5);
+    },delay+=100);
     
 }
 function bubbleSort()
 {
-    
+    disableBUtton();
     delay=0;   
     for(var i=0;i<bar.length;i++){
         for(var j=0;j<bar.length-i-1;j++){
@@ -57,14 +86,13 @@ function bubbleSort()
         update(j,"green",bar[j]);
     }
     update(0,"green",bar[0]);
-    document.getElementById('btn-bubble-sort').disabled=true;
-    document.getElementById('btn-selection-sort').disabled=true;
-    document.getElementById('btn-generate').disabled=true;
+    
     enableButton();
 }
 
 function selectionSort()
 {
+    disableBUtton();
     delay=0;
     for(var i=0;i<bar.length-1;i++){
         update(i,"red",bar[i]);
@@ -95,27 +123,89 @@ function selectionSort()
     }
     update(i,"green",bar[i]);
 
-    document.getElementById('btn-bubble-sort').disabled=true;
-    document.getElementById('btn-selection-sort').disabled=true;
-    document.getElementById('btn-generate').disabled=true;
-
     enableButton();
 }
-function enableButton()
+
+function insertionSort()
 {
-   setTimeout(()=>{
-       
-        document.getElementById('btn-bubble-sort').disabled=false;
-        document.getElementById('btn-selection-sort').disabled=false;
-        document.getElementById('btn-generate').disabled=false;
-    },delay);
+    delay=0;
+    disableBUtton();
+    var i;
+    for(i=0;i<bar.length;i++){
+        update(i,"yellow",bar[i]);
+        var key=bar[i];
+        var j=i-1;
+        while(j>=0 && bar[j]>key){
+            update(j,"red",bar[j]);
+            update(j+1,"red",bar[j+1]);
+            bar[j+1]=bar[j];
+            update(j,"red",bar[j]);
+            update(j+1,"red",bar[j+1]);
+
+            update(j,"blue",bar[j]);
+
+            if(i==j-1)update(j+1,"yellow",bar[j+1]);
+            else update(j+1,"blue",bar[j+1]);
+            j--;
+        }
+        bar[j+1]=key;
+        for(var pos=0;pos<i;pos++)update(pos,"green",bar[pos]);
+    }
+    update(i-1,"green",bar[i-1]);
+    enableButton();
 }
 
-generateArrayBar();
+function mergeSort()
+{
+    delay=0;
+    disableBUtton();
+    mergeSortPertition(0,bar.length-1);
+    enableButton();
 
-document.getElementById('btn-generate').addEventListener("click",()=>{generateArrayBar()});
-document.getElementById('btn-bubble-sort').addEventListener("click",()=>{bubbleSort()});
-document.getElementById('btn-selection-sort').addEventListener("click",()=>{selectionSort()});
+}
+function mergeSortPertition(start,end)
+{
+    if(start<end)
+    {
+        let mid = Math.floor((start+end)/2);
+        update(mid,"yellow",bar[mid]);
+        mergeSortPertition(start,mid);
+        mergeSortPertition(mid+1,end);
+
+        merge(start,mid,end);
+    }
+}
+function merge(start,mid,end)
+{
+    var f=start,s=mid+1;
+    var temp=[];
+    var p=0;
+    for(var i=start;i<=end;i++){
+        if(f>mid){
+            temp[p++]=bar[s++];
+            update(s-1,"red",bar[s-1]);
+        }
+        else if(s>end){
+            temp[p++]=bar[f++];
+            update(f-1,"red",bar[f-1]);
+        }
+        else if(bar[s]>bar[f]){
+            temp[p++]=bar[f++];
+            update(f-1,"red",bar[f-1]);
+        }
+        else{
+            temp[p++]=bar[s++];
+            update(s-1,"red",bar[s-1]);
+        }
+    }
+    for(var pos=0;pos<p;pos++){
+        bar[start++]=temp[pos];
+        update(start-1,"green",bar[start-1]);
+    }
+}
+setup();
+
+
 
 
       
