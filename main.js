@@ -11,8 +11,11 @@ function setSpeed()
 {
     var s=document.getElementById('speed').value;
     s = parseInt(s);
-    
-    speed=s;
+    if(s==1)speed=1;
+    else if(s==2)speed=5;
+    else if(s==3)speed=10;
+    else if(s==4)speed=100;
+    else speed=1000;
     console.log(speed);
 }
 function disableBUtton()
