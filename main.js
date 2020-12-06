@@ -24,6 +24,7 @@ function disableBUtton()
     document.getElementById('btn-selection-sort').disabled=true;
     document.getElementById('btn-insertion-sort').disabled=true;
     document.getElementById('btn-merge-sort').disabled=true;
+    document.getElementById('btn-quick-sort').disabled=true;
     document.getElementById('btn-generate').disabled=true;
     document.getElementById('speed').disabled=true;
 }
@@ -35,6 +36,7 @@ function enableButton()
         document.getElementById('btn-selection-sort').disabled=false;
         document.getElementById('btn-insertion-sort').disabled=false;
         document.getElementById('btn-merge-sort').disabled=false;
+        document.getElementById('btn-quick-sort').disabled=false;
         document.getElementById('btn-generate').disabled=false;
         document.getElementById('speed').disabled=false;
     },delay);
@@ -48,6 +50,7 @@ function setup()
     document.getElementById('btn-selection-sort').addEventListener("click",()=>{selectionSort()});
     document.getElementById('btn-insertion-sort').addEventListener("click",()=>{insertionSort()});
     document.getElementById('btn-merge-sort').addEventListener("click",()=>{mergeSort()});
+    document.getElementById('btn-quick-sort').addEventListener("click",()=>{quickSort()});
 }
 function generateArrayBar()
 {
@@ -223,6 +226,62 @@ function merge(start,mid,end)
         bar[start++]=temp[pos];
         update(start-1,afterSortColor,bar[start-1]);
     }
+}
+
+function quickSort()
+{
+    delay=0;
+    disableBUtton();
+    quickSortPartition(0,bar.length-1);
+    enableButton();
+}
+function quickSortPartition(start,end)
+{
+    
+    if(start<end){
+        var pivot = quickPivot(start,end);
+        quickSortPartition(start,pivot-1);
+        quickSortPartition(pivot+1,end);
+    }
+}
+function quickPivot(start,end)
+{
+    var i = start+1;
+    var pivot = bar[start];
+    update(start,scanningColor,bar[start]);
+
+    for(var j=start+1;j<=end;j++){
+        if(bar[j]<pivot){
+            update(j,scanningColor,bar[j]);
+            update(i,runningColor,bar[i]);
+            update(j,runningColor,bar[j]);
+
+            var temp= bar[i];
+            bar[i]=bar[j];
+            bar[j]=temp;
+
+            update(i,runningColor,bar[i]);
+            update(j,runningColor,bar[j]);
+            update(i,currentColor,bar[i]);
+            update(j,currentColor,bar[j]);
+            i++;
+        }
+    }
+    update(start,runningColor,bar[start]);
+    update(i-1,runningColor,bar[i-1]);
+
+    var temp= bar[start];
+    bar[start]=bar[i-1];
+    bar[i-1]=temp;
+
+    update(start,runningColor,bar[start]);
+    update(i-1,runningColor,bar[i-1]);
+
+    for(var pos=start;pos<=i;pos++)
+    {
+        update(pos,afterSortColor,bar[pos]);
+    }
+    return i-1;
 }
 setup();
 

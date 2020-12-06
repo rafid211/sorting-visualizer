@@ -2,7 +2,7 @@
 .array-container{
     position:absolute;
     left:110px;
-    padding-top: 100px;
+    padding-top: 50px;
     overflow: auto;
     white-space: nowrap;
     /* transform: rotate(180deg) scaleX(-1); */
