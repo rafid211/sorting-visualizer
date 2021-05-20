@@ -1,18 +1,17 @@
-
-.array-container{
-    position:absolute;
-    left:110px;
-    padding-top: 50px;
-    overflow: auto;
-    white-space: nowrap;
-    /* transform: rotate(180deg) scaleX(-1); */
+.array-container {
+  position: absolute;
+  left: 110px;
+  padding-top: 50px;
+  overflow: auto;
+  white-space: nowrap;
+  /* transform: rotate(180deg) scaleX(-1); */
 }
-.array-bar{
-    width: 7px;
-    background-color:rgb(25, 195, 238);
-    display:inline-block;
-    margin: 0 5px;
+.array-bar {
+  width: 7px;
+  background-color: rgb(25, 195, 238);
+  display: inline-block;
+  margin: 0 5px;
 }
-.speed{
-    margin-left: 10px;
+.speed {
+  margin-left: 10px;
 }
